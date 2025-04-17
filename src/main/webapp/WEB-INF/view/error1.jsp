@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Error</title>
+    <title>Error1</title>
 </head>
 <body>
-<h1>Error : ${e}</h1>
+<h1>Error1 : ${e}</h1>
 </body>
 </html>

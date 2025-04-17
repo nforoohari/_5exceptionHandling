@@ -16,10 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.util.UrlPathHelper;
-
 import java.util.List;
 import java.util.Properties;
-
 
 @Configuration
 @EnableWebMvc
@@ -27,51 +25,48 @@ import java.util.Properties;
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    public ViewResolver viewResolver()
-    {
-        InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        UrlPathHelper urlPathHelper=new UrlPathHelper();
+        UrlPathHelper urlPathHelper = new UrlPathHelper();
         urlPathHelper.setRemoveSemicolonContent(false);
         configurer.setUrlPathHelper(urlPathHelper);
     }
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        // converters.add(new StringHttpMessageConverter());
-        // converters.add(new Jaxb2RootElementHttpMessageConverter());
         converters.add(new MappingJackson2HttpMessageConverter());
     }
 
-    //
-   /* @Bean
-    public HandlerExceptionResolver getHandlerExceptionResolver() {
-        return new HandlerExceptionResolver() {
+//    @Bean
+//    public HandlerExceptionResolver getHandlerExceptionResolver() {
+//        return new HandlerExceptionResolver() {
+//            @Override
+//            public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+//                ModelAndView modelAndView = new ModelAndView();
+//                modelAndView.setViewName("error1");
+//                modelAndView.addObject("e", ex);
+//                return modelAndView;
+//            }
+//        };
+//    }
 
-            @Override
-            public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+//    @Bean
+//    public HandlerExceptionResolver getHandlerExceptionResolver() {
+//        SimpleMappingExceptionResolver s = new SimpleMappingExceptionResolver();
+//        Properties p = new Properties();
+//        p.setProperty(NullPointerException.class.getName(), "error2");
+//        s.setExceptionMappings(p);
+//        s.addStatusCode("error2", 502);
+//        s.setDefaultErrorView("error3");
+//        s.setDefaultStatusCode(403);
+//        return s;
+//    }
 
-                ModelAndView modelAndView = new ModelAndView();
-                modelAndView.setViewName("error");
-                modelAndView.addObject("exception", ex);
-                return modelAndView;
-            }
-        };
-    }*/
-   /* @Bean
-    public HandlerExceptionResolver getHandlerExceptionResolver() {
-       SimpleMappingExceptionResolver exceptionResolver=new SimpleMappingExceptionResolver();
-       Properties properties=new Properties();
-       properties.put("java.lang.Exception", "error1");
-       properties.put("java.lang.Nu", "error2");
-
-       exceptionResolver.setExceptionMappings(properties);
-       exceptionResolver.addStatusCode("error1",404);
-       exceptionResolver.setDefaultErrorView("error");
-       return exceptionResolver;
-    }*/
 }

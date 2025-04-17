@@ -1,9 +1,9 @@
 package ir.digixo.exception;
 
 public class MyErrorResponse {
+
     private int code;
     private String message;
-
 
     public MyErrorResponse(int code, String message) {
         this.code = code;
